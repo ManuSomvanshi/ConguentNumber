@@ -1,0 +1,86 @@
+\section{Elliptic Curves and Tunnell's Theorem}
+Consider the \cref{eq:1.1} in \cref{pro:rational_sq}. We can multiply the two equations together to obtain
+\begin{align*}
+  \l(\f{x^2 - y^2}{4}\r)^2 &= \f{z^4}{16} - n^2
+\end{align*}
+Thus it follows that there exists a rational solution to the equation
+\begin{align*}
+  v^2 = u^4 - n^2
+\end{align*}
+where $v = (x^2 - y^2)/4, u = z/2$. Multiplying this equation by $u^2$ and setting $X = u^2$ and $Y = uv$ we get
+\begin{align}\label{eq:elliptic}
+  Y^2 = X^3 - n^2X
+\end{align}
+Thus given a right angle triangle which has rational sides and area $n$, there exists a point $(X,Y)\in \Q^2$ which lies on the curve given by \cref{eq:elliptic}. An interesting question to ask at this point is whether every rational point on this curve corresponds to a right triangle with rational sides and area $n$? This is not true in general since the $X$ coordinate must be a rational square (by the construction above). But a classification of such rational points on the curve \cref{eq:elliptic} is possible, as shown in the following theorem.
+
+\begin{theorem}
+  Let $(X,Y)$ be a rational point on the curve $Y^2 = X^3 - n^2X$ such that
+  \begin{enumerate}
+    \item $X$ is a rational square.
+    \item $X$ has an even denominator.
+  \end{enumerate}
+  Then there exists a right angle triangle with rational sides and area $n$.
+\end{theorem}
+\begin{proof}
+  Let $u = \sqrt{X}$ and $v = Y/u$. Then we get that
+  \begin{align*}
+    &v^2u^2 = u^6 - n^2 u^2\\
+    \implies &v^2 = u^4 - n^2\\
+    \implies &v^2 + n^2 = x^2
+  \end{align*}
+  Let $u = p/q$ where $p,q$ are coprime. Then by assumption $q$ is even. Since $n$ is an integer it follows that $v^2$ and $x^2$ have the same denominator, i.e. $q^4$. Clearly $q^2v, q^2n, q^2x$ is a primitive Pythagoras triplet. Thus there exists $a,b$ coprime and $a+b$ odd, such that $q^2v = a^2 - b^2, q^2n = 2ab$, and $q^2x = a^2 + b^2$. Then the right angle triangle with sides $x = 2a/q, y = 2b/q,$ and $z = 2u$ has area $n$.
+\end{proof}
+
+\begin{definition}
+  Let $K$ be some field with characteristic $\neq 2$ and let $f\in K[x]$ be a cubic polynomial with distinct roots in some extension $K'$ of $K$. Then the set of solutions to the equation
+  \begin{align*}
+    E:\ y^2 = f(x),
+  \end{align*}
+  where $x,y$ are in $K'$, are called the $K'$ points of an elliptic curve. Represent this set by $E(K)$.
+\end{definition}
+
+Till now we had been working with the elliptic curve $y^2 = x^3 - n^2x$ over the field $K = K' =\Q$. This is an elliptic curve because the roots of the polynomial $x^3 - n^3x$ are $0, \pm n$ (distinct in $\Q$). Thus the congruent number problem is very closely related to the study of elliptic curves.\\
+
+%\begin{definition}
+%  Let $K$ be a field. Consider the following equivalence relation on $K^3$,
+%  \begin{align*}
+%    (x,y,z) \sim (x',y',z') \iff \exists \lambda\in K\ \text{s.t.}\ (x,y,z) = (\lambda x', \lambda y', \lambda z').
+%  \end{align*}
+%  Then the set $ \mathbb{P}^2_K \coloneqq K^3-\{(0,0,0)\}\bign/\sim$ is called the projective plane.
+%\end{definition}
+
+Consider an elliptic curve $E(K)$ over some field $K$. Define an addition on $E(K)$ in the following way: consider 2 $K-$points $P,Q$, on the elliptic curve $E(K)$. Draw a line joining $P,Q$. This would intersect the curve at a third point $R$. Then define $P+Q = -R$, where $-R = (a,-b)$ if $R=(a,b)$. Let $O$ be the (unique) point at infinity. This addition makes $E(K)$ an abelian group with identiy $O$. The inverse of a point is $P$ is just $-P$.
+
+\begin{definition}
+  If $G$ is a group then the subgroup containing all finite order elements is called the torsion subgroup $G_{\text{tors}}$ of $G$.
+\end{definition}
+\begin{theorem}[Mordell-Weil]
+  If $E(\Q)$ is a an elliptic curve then it is finitely generated and $E(\Q) \cong E(Q)_{\text{tors}} \times \Z^r$.
+\end{theorem}
+Here the number $r$ is called the rank of the elliptic curve.
+\begin{conjecture}[Birch and Swinnerton-Dyer (BSD)]
+  Let $E$ be an elliptic curve and $x$ be some integer, then
+  \begin{align*}
+    \prod_{p\ |\ x} \f{\# E(\mathbb{F}_p)}{p} \sim C_E (\log(x))^{\text{rank}(E(\Q))}.
+  \end{align*}
+\end{conjecture}
+Now we can finally understand the statement of the amazing theorem proved by Tunnell regarding to classify congruent numbers.
+\begin{theorem}[Tunnell]
+  Let $n$ be a square free positive integer. Then define the following:
+  \begin{align*}
+    a_n &= \#\{(x,y,z)\in \Z^3\ |\ 2x^2 +y^2+8z^2 = n\}\\
+    b_n &= \#\{(x,y,z)\in \Z^3\ |\ 2x^2 +y^2+32z^2 = n\}\\
+    a'_n &= \#\{(x,y,z)\in \Z^3\ |\ 8x^2 +2y^2+16z^2 = n\}\\
+    b'_n &= \#\{(x,y,z)\in \Z^3\ |\ 8x^2 +2y^2+64z^2 = n\}.
+  \end{align*}
+  Then,
+  \begin{enumerate}
+    \item If $n$ is an odd congruent number then $a_n = 2b_n$. If $n$ is an even congruent number then $a'_n = 2b'_n$.
+    \item The converse of statement 1 is true if the BSD conjecture is assumed.
+  \end{enumerate}
+\end{theorem}
+
+An immidiate corollary to Tunnell's theorem is the following.
+\begin{corollary}
+  Let $n$ be an integer. $n$ is congruent if $n \equiv 5,6,7 \pmod{8}$.
+\end{corollary}

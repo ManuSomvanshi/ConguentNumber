@@ -1,0 +1,67 @@
+\section{Congruent Numbers and the Problem}
+The congruent number problem is ancient problem in number theory. A congruent number is defined as follows.
+\begin{definition}
+  An positive integer $n$ is said to be a congruent number if there exists a right angle triangle with rational sides such that $n$ is the area of that triangle. 
+\end{definition}
+The congruent number problem asks whether it is possible to devise a simple enough test to check if an integer is congruent. Here "simple enough" means that the congruency of the number can be determined in polynomial time. Using the concept of Pythagoras triplets it easy enough to generate right triangles. This technique can be used to generate all the congruent numbers as well. Let $a,b$ be two integers. Then $x = a^2-b^2, y = 2ab, z = a^2+b^2$ satisfies the condition $x^2+y^2 = z^2$. If $g$ is the g.c.d. of $a,b$ then $a = gc$ and $b = gd$ where $\gcd(c,d) = 1$. Let $x' = c^2 - d^2, y' = 2cd, z' = c^2+d^2$. Then we can have
+\begin{align*}
+  x = g^2x',\ y = g^2 y',\And z = g^2z'.
+\end{align*}
+Moreover when $c,d$ are both not odd together then $(x',y',z')$ are primitive Pythagoras triplets (i.e. they have no common divisor). Now consider the following result.
+\begin{proposition}
+  An integer $n$ is congruent if it's square free part is congruent.
+\end{proposition}
+\begin{proof}
+  Consider an integer $n = s^2m$, where $m$ is square free. Then there exist $x,y,z\in \Q^*$ such that $z^2 = x^2 + y^2$ and $m = \f{1}{2}xy$. Then the number $n = s^2m$ corresponds to the area of the triangle with sides $sx, sy, sz$.
+\end{proof}
+This result leads to the following definition of an equivalence relation on $\Z^+$: let $x\sim y$ if either $x = s^2y$ or $y = s^2 x$ for some $s\in Z$. Let $S$ be the $\Z^+\bign/ \sim$. $S$ has an equivalence class for each square free integer. By the previous proposition it is enough to check congruence of elements in $S$. Returning back to the problem of generating congruent numbers: since the primitive Pythagoras triplets can generate any Pythagoras triplet with area of the respective triangles differing by factor of a square, it follows that looking at primitive Pythagoras triplets is enough. This discussion is summarised in the following theorem.
+\begin{theorem}\label{thm:cong_gen}
+  For every congruent number $n$ there exists integers $a,b$ such that $\gcd(a,b) = 1$, $a,b$ are both not odd, and $n \sim ab(a^2-b^2)$. 
+\end{theorem}
+\begin{proof}
+  For $n$ there exists rationals $x,y,z$ such that $n = \f{1}{2}xy$ and $x^2 + y^2 = z^2$. Suppose that $x = p/q, y = r/s, z = t/u$ then $n' = \f{1}{2}(prqs)u^2 = n(q^2s^2u^2)$ is the area of the triangle with integer sides $psu, rqu, qst$. By definition $n\sim n'$. Since primitive Pythagoras triplets generates Pythagoras triplets it follows that there is some Pythagoras triplet $x',y',z'\in \Z^+$ such that they are coprime. Since every primitive Pythagoras triplet can be written as $x' = a^2 - b^2, y' = 2ab, z' = a^2 + b^2$ where $a,b$ are coprime and both are not odd, the conclusion follows.
+\end{proof}
+\begin{remark}
+Using \cref{thm:cong_gen} it follows that every primitive Pythagoras triplet generate the set of squarefree congruent numbers. I have written a program (discussed later) which will generate a list of congruent numbers. But note that it is not possible to know a specific congruent number would appear in this list.
+\end{remark}
+\begin{proposition}\label{pro:rational_sq}
+  An integer $n$ is congruent if and only if there exists $a\in \Q^+$ such that $a, a \pm n$ are rational squares.
+\end{proposition}
+\begin{proof}
+  Suppose that $n$ is congruent. Then there exists rational $x,y,z$ such that $x^2 +y^2 =z^2$ and $n = \f{1}{2}xy$. Thus it follows that
+  \begin{align}\label{eq:1.1}
+    x^2 + y^2 \pm 4n &= z^2 \pm 4n \nonumber\\
+    \implies (x\pm y)^2 &= z^2 \pm 4n \nonumber\\
+    \implies \l(\f{x\pm y}{2}\r)^2 &= \l(\f{z}{2}\r)^2 \pm n
+  \end{align}
+  Thus we get $a = (z/2)^2$. Conversly suppose that there is an $a$ such that $a, a \pm n$ are a rational squares. Then let $x = \sqrt{a + n} - \sqrt{a - n}, y = \sqrt{a + n} + \sqrt{a -n}, z = 2\sqrt{a}$. Then we clearly have $x^2 + y^2 = z^2$ and $n = \f{1}{2}xy$.
+\end{proof}
+
+\begin{theorem}[Fermat]
+  $1$ is not a congruent number.
+\end{theorem}
+\begin{proof}
+  Suppose that $1$ is congruent. Then there exists an $a\in \Q^+$ such that $a\pm 1, a$ are rational squares. Suppose that $\sqrt{a} = \f{u}{v}$ such that $u,v$ are coprime. Then
+  \begin{align*}
+    a\pm 1 & = \f{u^2 \pm v^2}{v^2}
+  \end{align*}
+  Multiplying these we get that
+  \begin{align*}
+    v^4(a^2-1) = u^4 - v^4.
+  \end{align*}
+  Note that the LHS is a perfect integer square as well. Thus there exists an integral solution to the equation
+  \begin{align*}
+    X^4 - Y^4 = Z^2
+  \end{align*}
+  This is a contradiction since the above equation has no solutions.
+\end{proof}
+
+\begin{corollary}
+  Perfect squares are not congruent.
+\end{corollary}
+\begin{proof}
+  Since the square free part of perfect squares is $1$, it follows that $n$ is not congruent. 
+\end{proof}
+\begin{remark}
+  The above corollary has an interesting geometric interpretation as well. Given any right angle triangle with rational sides and area $n\in \N$ it is not possible to construct a square of rational side with area $n$.
+\end{remark}
